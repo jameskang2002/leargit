@@ -1,0 +1,111 @@
+[step 1, install]
+
+[step 2, config]
+	$git config --global user.name "Your Name"
+	$git config --global user.email "email@example.com"
+	root@james-PC17:/var/www/html/daily# git config --global -l
+		user.name=James Kang
+		user.email=james.kang2002@gmail.com
+
+[step 3, create repository => empty folder]
+root@james-PC17:~# mkdir leargit
+root@james-PC17:~# cd leargit
+root@james-PC17:~/leargit# pwd
+/root/leargit
+root@james-PC17:~/leargit# 
+
+root@james-PC17:~/leargit# git init    => now the rpository can be managed by git
+Initialized empty Git repository in /root/leargit/.git/
+
+root@james-PC17:~/leargit# ls -al
+total 12
+drwxr-xr-x  3 root root 4096 2019-01-17 16:37 .
+drwx------ 38 root root 4096 2019-01-17 16:39 ..
+drwxr-xr-x  7 root root 4096 2019-01-17 16:37 .git     ==> hidden folder created automatically
+
+[step 4, create a file and add it to repository]
+root@james-PC17:~/leargit# git add readme.txt      ===> add to repository (no msg return means good msg)
+root@james-PC17:~/leargit# git commit -m "wrote a readme file"
+[master (root-commit) 5ac0de9] wrote a readme file
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+ create mode 100644 readme.txt
+root@james-PC17:~/leargit#
+
+OK, so why 2 steps, add and commit ? u can add more than one file and commit them together.
+
+[step 5, modify the file readme.txt]
+root@james-PC17:~/leargit# git status
+# On branch master
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#       modified:   readme.txt
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+root@james-PC17:~/leargit# git diff readme.txt 
+diff --git a/readme.txt b/readme.txt
+index 19f84cc..eed5fb8 100644
+--- a/readme.txt
++++ b/readme.txt
+@@ -1,3 +1,4 @@
+ git is version control system 
++       add one line
+ git is free software 
+ 
+root@james-PC17:~/leargit# 
+
+[step 6, add the file and commit the change]
+root@james-PC17:~/leargit# git add readme.txt 
+root@james-PC17:~/leargit# git status
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#       modified:   readme.txt
+#
+root@james-PC17:~/leargit# git commit -m "add one line"
+[master b96ec60] add one line
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+root@james-PC17:~/leargit# git status
+# On branch master
+nothing to commit (working directory clean)
+root@james-PC17:~/leargit# 
+
+[step 7, working directory and repository] 
+	folder /root/leargit/ is working directory
+	.git is repository
+	add - put the change in __STAGE__
+	commit - put the change in __REPOSITORY__
+
+http://www.unitest2.com/html/daily/stage.jpg 
+
+
+
+[step 8, github]
+#git remote add origin git@github.com:jameskang2002/leargit.git ==> origin: the name of remote repository
+#git push -u origin master --force ==> otherwise error printed as below:
+root@james-PC17:~/leargit# git push -u origin master
+To git@github.com:jameskang2002/leargit.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:jameskang2002/leargit.git'
+To prevent you from losing history, non-fast-forward updates were rejected
+Merge the remote changes before pushing again.  See the 'Note about
+fast-forwards' section of 'git push --help' for details.
+root@james-PC17:~/leargit# git push -u origin master --force
+Counting objects: 6, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (6/6), 546 bytes, done.
+Total 6 (delta 0), reused 0 (delta 0)
+To git@github.com:jameskang2002/leargit.git
+ + 6aef461...b96ec60 master -> master (forced update)
+Branch master set up to track remote branch master from origin.
+
+OK, update the remote repository:
+	-- vim newfile.txt ==> create newe file
+	-- git add newfile.txt  => add to local STAGE
+	-- git commit -m "add new file"  => add to local repository
+	-- git push origin master  => push the new change to remote repository "origin"
+
+  
